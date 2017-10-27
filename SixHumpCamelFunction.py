@@ -31,7 +31,19 @@ class SHCamel(IndividuoRep):
                 self.codificX[posicaoMutX] = random.randint(0,9)
                 self.codificY[posicaoMutY] = random.randint(0,9)
 
+    #TODO
+    # Mutation as a sum of a random value (derivative??)
+    # Replace for upper boundary
 
+    #SINGLE POINT Crossover
+    def crossOver(self, Partner):
+        crossPoint = random.randint(0, self.Nbits-1)
+        self.codificX = self.codificX[:crossPoint+1] + Partner.getCodific()[0][crossPoint+1:len(self.codificX)]
+        Partner.setCodificX(Partner.getCodific()[0][crossPoint+1]+self.codificX[crossPoint+1:len(self.codificX)])
+        self.codificY = self.codificY[:crossPoint + 1] + Partner.getCodific()[1][crossPoint + 1:len(self.codificY)]
+        Partner.setCodificY(Partner.getCodific()[1][crossPoint + 1] + self.codificY[crossPoint + 1:len(self.codificY)])
 
-    def crossOver(self):
-        return 0
+    #TODO
+    #Uniform Crossover
+    #Two Point Crossover
+    #Different Positions for X and Y axis

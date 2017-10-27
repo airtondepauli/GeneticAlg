@@ -3,95 +3,6 @@
 __author__ = "Airton Depauli Junior"
 __license__ = "GPL"
 
-"""
-import random
-#import pdb
-#import math
-
-class IndividuoRep:
-
-    ##############
-    #Class Vars:
-    #Nbits - Numero de bits para a representacao 1 bit para parte inteira, 7 bits para a fracionaria
-    #Tipo = Tipo de representacao, 'd' para decimal e 'b' para binaria
-    #codific[Nbits] - Representação do individuo
-    #value - valor da representacao
-    #fitnessValue - valor de avaliacao
-    ###############
-
-    def __init__(self, Nbits, RangeX, RangeY, InicializacaoX=None, InicializacaoY=None, Tipo='d', orderNumber=1, Generation=1):
-        self.Nbits = Nbits
-        self.Tipo = Tipo
-        self.codificX = range(Nbits)
-        self.codificY = range(Nbits)
-        self.valueX = InicializacaoX
-        self.valueY = InicializacaoY
-        self.number = orderNumber
-        self.Generation = Generation
-        try:
-            if InicializacaoX is None and InicializacaoY is None:
-                if Tipo == 'd':
-                    self.codificX[0] = random.choice(range(RangeX[0], RangeX[1]))
-                    self.codificY[0] = random.choice(range(RangeY[0], RangeY[1]))
-                    for i in range(len(self.codificX)-1):
-                        self.codificX[i+1] = random.choice(range(0, 9))
-                        self.codificY[i+1] = random.choice(range(0, 9))
-                    self.valueX = self.setToNumber()
-                else:
-                    for i in range(len(self.codific)-1):
-                        self.codific[i+1] = random.choice(range(0, 1))
-            else:
-                self.codific = [int(x) for x in str(Inicializacao)]
-        except TypeError:
-            print("Missing Args")
-        self.fitnessValue = self.fitnessFunction()
-
-    def setToNumber(self):
-        parteInteira = self.codific[0]
-        strConvert = ''
-        parteFrac = int(strConvert.join(str(element) for element in self.codific[1:]))
-        parteFrac = parteFrac/pow(10, self.Nbits-1)
-        return parteInteira+parteFrac
-
-    def fitnessFunction(self):
-        # Override this
-        return 0
-
-    def mutation(self):
-        # Override this
-        return 0
-
-    def crossOver(self):
-        # Override this
-        return 0
-
-    def __str__(self):
-        print("Individuo {} da geracao {}".format(self.number, self.Generation))
-        print("Valor: {}".format(self.value), end=' ')
-        print(self.codific)
-        print("Valor de Fitness: {}".format(self.fitnessValue))
-
-    def getNbits(self):
-        return self.Nbits
-
-    def getTipo(self):
-        return self.Tipo
-
-    def getCodific(self):
-        return self.codific
-
-    def getValue(self):
-        return self.value
-
-    def getFitnessValue(self):
-        return self.fitnessValue
-
-    def getGeneration(self):
-        return self.Generation
-
-    def getOrder(self):
-        return self.number
-"""
 
 from abc import ABCMeta, abstractmethod
 import random
@@ -212,6 +123,17 @@ class IndividuoRep(metaclass=ABCMeta):
     def getOrder(self):
         return self.number
 
+    def setCodificX(self, nCodificX):
+        self.codificX = nCodificX
+
+    def setCodificY(self, nCodificY):
+        self.codificY = nCodificY
+
     def update(self):
         self.setToNumber()
         self.fitnessFunction()
+
+    #TODO
+    #Separate Functions call, just one return per function
+    #Method signature must be the same for abstractmethod and overridden method
+    #Corrections with OO
