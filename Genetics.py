@@ -1,4 +1,8 @@
 # coding=utf-8
+
+__author__ = "Airton Depauli Junior"
+__license__ = "GPL"
+
 """
 import random
 #import pdb
@@ -115,7 +119,7 @@ class IndividuoRep(metaclass=ABCMeta):
     def __init__(self, Nbits, RangeX, RangeY, InicializacaoX=None, InicializacaoY=None, Tipo='d', orderNumber=1, Generation=1, PI=1):
 	
         self.Nbits = Nbits
-        pdb.set_trace()
+        #pdb.set_trace()
         self.Tipo = Tipo
         self.codificX = []
         self.codificY = []
@@ -125,20 +129,24 @@ class IndividuoRep(metaclass=ABCMeta):
         self.Generation = Generation
         self.NPI = PI
         self.NPF = Nbits - PI
+        self.EspacoBuscaX = RangeX
+        self.EspacoBuscaY = RangeY
+        self.fitnessValue = 0
         try:
             if InicializacaoX is None and InicializacaoY is None:
                 if Tipo == 'd':
-                    self.codificX.append(random.choice(range(RangeX[0], RangeX[1])))
-                    self.codificY.append(random.choice(range(RangeY[0], RangeY[1])))
+                    self.codificX.append(random.randint(RangeX[0], RangeX[1]))
+                    self.codificY.append(random.randint(RangeY[0], RangeY[1]))
                     for i in range(self.Nbits - 1):
-                        self.codificX.append(random.choice(range(0, 9)))
-                        self.codificY.append(random.choice(range(0, 9)))
-                    self.valueX = self.setToNumber()[0]
-                    self.valueY = self.setToNumber()[1]
+                        self.codificX.append(random.randint(0,9))
+                        self.codificY.append(random.randint(0,9))
+                    #self.valueX = self.setToNumber()[0]
+                    #self.valueY = self.setToNumber()[1]
+                    self.setToNumber()
                 else:
                     for i in range(len(self.codific) - 1):
-                        self.codificX[i + 1] = random.choice(range(0, 1))
-                        self.codificY[i + 1] = random.choice(range(0, 1))
+                        self.codificX[i + 1] = random.randint(0,1)
+                        self.codificY[i + 1] = random.randint(0,1)
                     raise NotImplementedException
             else:
                 raise NotImplementedException
@@ -146,7 +154,8 @@ class IndividuoRep(metaclass=ABCMeta):
             print("Missing Args")
         except NotImplementedException:
             print("This feature wasn't implemented yet")
-        self.fitnessValue = self.fitnessFunction()
+        #self.fitnessValue = self.fitnessFunction()
+        self.fitnessFunction()
 
     #TODO
     #Implementar parte inteira/fracionaria com quantidade de bits variavel
@@ -160,7 +169,9 @@ class IndividuoRep(metaclass=ABCMeta):
         parteFracY = int(strConvertY.join(str(element) for element in self.codificY[1:]))
         parteFracX = parteFracX/pow(10, self.Nbits - 1)
         parteFracY = parteFracY/pow(10, self.Nbits - 1)
-        return [parteInteiraX + parteFracX, parteInteiraY + parteFracY]
+        self.valueX = parteInteiraX + parteFracX
+        self.valueY = parteInteiraY + parteFracY
+        #return [parteInteiraX + parteFracX, parteInteiraY + parteFracY]
 
     @abstractmethod
     def fitnessFunction(self):
@@ -200,3 +211,7 @@ class IndividuoRep(metaclass=ABCMeta):
 
     def getOrder(self):
         return self.number
+
+    def update(self):
+        self.setToNumber()
+        self.fitnessFunction()
