@@ -43,6 +43,7 @@ class IndividuoRep(metaclass=ABCMeta):
         self.EspacoBuscaX = RangeX
         self.EspacoBuscaY = RangeY
         self.fitnessValue = 0
+        self.debug = True
         try:
             if InicializacaoX is None and InicializacaoY is None:
                 if Tipo == 'd':
@@ -104,7 +105,7 @@ class IndividuoRep(metaclass=ABCMeta):
         pass
 
     def __str__(self):
-        return "Individuo {} da geracao {}\nValorX: {}, ValorY: {}\nX: {}, Y: {}\nValor de Fitness: {}".format(self.number, self.Generation,self.valueX, self.valueY, self.codificX, self.codificY, self.fitnessValue)
+        return "Individuo {} da geracao {}\nValorX: {}, ValorY: {}\nX: {}, Y: {}\nValor de Fitness: {}\n".format(self.number, self.Generation,self.valueX, self.valueY, self.codificX, self.codificY, self.fitnessValue)
         #print("Individuo {} da geracao {}".format(self.number, self.Generation))
         #print("ValorX: {}, ValorY: {}".format(self.valueX, self.valueY))
         #print("X: {}, Y: {}".format(self.codificX, self.codificY))
@@ -138,6 +139,7 @@ class IndividuoRep(metaclass=ABCMeta):
         self.codificY = nCodificY
 
     def update(self):
+        self.boundariesCorrection(self.EspacoBuscaX, self.EspacoBuscaY)
         self.setToNumber()
         self.fitnessFunction()
 
