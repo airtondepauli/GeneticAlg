@@ -1,4 +1,6 @@
 from SixHumpCamelFunction import SHCamel
+import random
+from PopulationFull import ListFullException
 import pdb
 
 class ListGenetic:
@@ -13,44 +15,66 @@ class ListGenetic:
         self.InicializacaoY = InicializacaoY
         self.OrderNumber = 1
         self.PI = PI
-        self.Population = []
+        self.List = []
         self.isSorted = False
-        for i in range(Tamanho):
-            self.Population.append(SHCamel(self.Nbits, self.RangeX, self.RangeY, self.InicializacaoX, self.InicializacaoY, self.Tipo, self.OrderNumber, self.GeracaoAtual, self.PI ))
+        self.Livres = self.Size
+
+    def initialize(self):
+        for i in range(self.Size):
+            self.List.append(SHCamel(self.Nbits, self.RangeX, self.RangeY, self.InicializacaoX, self.InicializacaoY, self.Tipo, self.OrderNumber, self.GeracaoAtual, self.PI ))
             self.OrderNumber += 1
+            self.Livres -=1
 
 
     def Ordena(self):
-        self.Population.sort(key=SHCamel.getFitnessValue)
+        self.List.sort(key=SHCamel.getFitnessValue)
         self.isSorted = True
 
     def debugPrint(self):
-        for indiv in self.Population:
+        for indiv in self.List:
             print(indiv)
             print("\n")
 
     def averageFitness(self):
         averageFitness = 0;
-        for indiv in self.Population:
+        for indiv in self.List:
             averageFitness += indiv.getFitnessValue()
         return averageFitness/self.Size
 
     def bestIndiv(self):
         if self.isSorted is True:
-            return self.Population[0]
+            return self.List[0]
         else:
             self.Ordena()
-            return self.Population[0]
-
+            return self.List[0]
 
     def randomSelection(self, quantidade):
-        pass
+        listaSelecionada = random.sample(self.List, quantidade)
+        return listaSelecionada
 
     def pickBest(self, quantidade):
-        pass
+        listaSelecionada = []
+        if self.isSorted is False:
+            self.Ordena()
+        for i in range(quantidade):
+            listaSelecionada.append(self.List[i])
+        return  listaSelecionada
 
     def __str__(self):
         return "Tamanho: {}\n".format(self.Size)
 
     def __len__(self):
         return self.Size
+
+    def addElement(self, NIndiv):
+        if self.Livres == 0:
+            raise ListFullException
+        else:
+            self.List.append(NIndiv)
+            self.Livres-=1
+
+    def addBlock(self, listIndiv):
+        if len(listIndiv) <= self.Livres:
+            self.Livres = self.Livres + listIndiv
+        else:
+            raise ListFullException

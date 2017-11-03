@@ -1,0 +1,2 @@
+class ListFullException(Exception):
+    pass

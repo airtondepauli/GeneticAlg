@@ -1,3 +1,4 @@
+from ListIndiv import ListGenetic
 from SixHumpCamelFunction import SHCamel
 import random
 import math
@@ -19,7 +20,7 @@ class GeneticAlgorithmController:
     """
 
 
-    def __init__(self, Tamanho, Geracoes, Pc, Pm, Elite, CrossPercentage, RandomSurvivors):
+    def __init__(self, Tamanho, Geracoes, Pc, Pm, Elite, CrossPercentage, RandomSurvivors, NBits, RangeX, RangeY, Tipo='d', PI=1):
         self.Size = Tamanho
         self.NGeneration = Geracoes
         self.Pc = Pc
@@ -27,11 +28,20 @@ class GeneticAlgorithmController:
         self.EliteSurv = Elite
         self.CrossPercentage = CrossPercentage
         self.RandomSurvivors = RandomSurvivors
-        self.Population = []
-        self.NewPopulation = []
         self.RandomRegeneration = 1 - Elite - CrossPercentage - RandomSurvivors
-        for i in range(self.Size):
-            self.Population.append()
+        self.CurrentGeneration = 1
+        self.Population = ListGenetic(self.Size, NBits, RangeX, RangeY, Tipo, self.CurrentGeneration, PI)
+        self.Population.initialize()
+        self.NPopulation = ListGenetic(self.Size, NBits, RangeX, RangeY, Tipo, self.CurrentGeneration+1, PI)
 
+    def run(self):
+        pass
 
+    def createNewGeneration(self):
+        pass
 
+    def averageFitness(self):
+        pass
+
+    def getBestIndiv(self):
+        pass
