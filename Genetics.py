@@ -53,9 +53,10 @@ class IndividuoRep(metaclass=ABCMeta):
                         self.codificY.append(random.randint(0,9))
                     #self.valueX = self.setToNumber()[0]
                     #self.valueY = self.setToNumber()[1]
+                    self.boundariesCorrection(RangeX, RangeY)
                     self.setToNumber()
                 else:
-                    for i in range(len(self.codific) - 1):
+                    for i in range(len(self.codificX) - 1):
                         self.codificX[i + 1] = random.randint(0,1)
                         self.codificY[i + 1] = random.randint(0,1)
                     raise NotImplementedException
@@ -80,8 +81,14 @@ class IndividuoRep(metaclass=ABCMeta):
         parteFracY = int(strConvertY.join(str(element) for element in self.codificY[1:]))
         parteFracX = parteFracX/pow(10, self.Nbits - 1)
         parteFracY = parteFracY/pow(10, self.Nbits - 1)
-        self.valueX = parteInteiraX + parteFracX
-        self.valueY = parteInteiraY + parteFracY
+        if parteInteiraX>=0:
+            self.valueX = parteInteiraX + parteFracX
+        else:
+            self.valueX = parteInteiraX - parteFracX
+        if parteInteiraY>=0:
+            self.valueY = parteInteiraY + parteFracY
+        else:
+            self.valueY = parteInteiraY - parteFracY
         #return [parteInteiraX + parteFracX, parteInteiraY + parteFracY]
 
     @abstractmethod
@@ -97,10 +104,11 @@ class IndividuoRep(metaclass=ABCMeta):
         pass
 
     def __str__(self):
-        print("Individuo {} da geracao {}".format(self.number, self.Generation))
-        print("ValorX: {}, ValorY: {}".format(self.valueX, self.valueY))
-        print("X: {}, Y: {}".format(self.codificX, self.codificY))
-        print("Valor de Fitness: {}".format(self.fitnessValue))
+        return "Individuo {} da geracao {}\nValorX: {}, ValorY: {}\nX: {}, Y: {}\nValor de Fitness: {}".format(self.number, self.Generation,self.valueX, self.valueY, self.codificX, self.codificY, self.fitnessValue)
+        #print("Individuo {} da geracao {}".format(self.number, self.Generation))
+        #print("ValorX: {}, ValorY: {}".format(self.valueX, self.valueY))
+        #print("X: {}, Y: {}".format(self.codificX, self.codificY))
+        #print("Valor de Fitness: {}".format(self.fitnessValue))
 
     def getNbits(self):
         return self.Nbits
@@ -132,6 +140,15 @@ class IndividuoRep(metaclass=ABCMeta):
     def update(self):
         self.setToNumber()
         self.fitnessFunction()
+
+    def boundariesCorrection(self, RangeX, RangeY):
+        if self.codificX[0] == RangeX[0] or self.codificX[0] == RangeX[1]:
+            for i in range(1, self.Nbits):
+                self.codificX[i] = 0
+        if self.codificY[0] == RangeY[0] or self.codificY[0] == RangeY[1]:
+            for i in range(1, self.Nbits):
+                self.codificY[i] = 0
+
 
     #TODO
     #Separate Functions call, just one return per function

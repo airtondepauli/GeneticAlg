@@ -1,4 +1,4 @@
-from Genetics import IndividuoRep
+from SixHumpCamelFunction import SHCamel
 import random
 import math
 import pdb
@@ -18,7 +18,8 @@ class GeneticAlgorithmController:
     RandomRegeneration - Porcentagem de indiviudos novos gerados randomicamente
     """
 
-    def __init__(self, Tamanho, Geracoes, Pc, Pm, Elite, CrossPercentage, RandomSurvivors, ):
+
+    def __init__(self, Tamanho, Geracoes, Pc, Pm, Elite, CrossPercentage, RandomSurvivors):
         self.Size = Tamanho
         self.NGeneration = Geracoes
         self.Pc = Pc
@@ -31,3 +32,6 @@ class GeneticAlgorithmController:
         self.RandomRegeneration = 1 - Elite - CrossPercentage - RandomSurvivors
         for i in range(self.Size):
             self.Population.append()
+
+
+
