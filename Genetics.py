@@ -117,11 +117,17 @@ class IndividuoRep(metaclass=ABCMeta):
     def getTipo(self):
         return self.Tipo
 
-    def getCodific(self):
-        return [self.codificX, self.codificY]
+    def getCodificX(self):
+        return self.codificX
 
-    def getValue(self):
-        return [self.valueX, self.valueY]
+    def getCodificY(self):
+        return self.codificY
+
+    def getValueX(self):
+        return self.valueX
+
+    def getValueY(self):
+        return self.valueY
 
     def getFitnessValue(self):
         return self.fitnessValue

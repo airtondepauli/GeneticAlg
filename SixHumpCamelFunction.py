@@ -39,7 +39,7 @@ class SHCamel(IndividuoRep):
                 self.codificX[posicaoMutX] = random.randint(0,9)
                 self.codificY[posicaoMutY] = random.randint(0,9)
         if self.debug:
-            print("Old value X: {}\nOld value Y: {}". format(self.getValue()[0], self.getValue()[1]))
+            print("Old value X: {}\nOld value Y: {}". format(self.getValueX(), self.getValueY()))
         self.update()
 
     #TODO
@@ -49,10 +49,21 @@ class SHCamel(IndividuoRep):
     #SINGLE POINT Crossover
     def crossOver(self, Partner):
         crossPoint = random.randint(0, self.Nbits-1)
-        self.codificX = self.codificX[:crossPoint+1] + Partner.getCodific()[0][crossPoint+1:len(self.codificX)]
-        Partner.setCodificX(Partner.getCodific()[0][crossPoint+1]+self.codificX[crossPoint+1:len(self.codificX)])
-        self.codificY = self.codificY[:crossPoint + 1] + Partner.getCodific()[1][crossPoint + 1:len(self.codificY)]
-        Partner.setCodificY(Partner.getCodific()[1][crossPoint + 1] + self.codificY[crossPoint + 1:len(self.codificY)])
+        if self.debug:
+            print(crossPoint)
+            print("X1: {} Y1: {}".format(self.codificX, self.codificY))
+            print("X2: {} Y2: {}".format(Partner.getCodificX(), Partner.getCodificY()))
+        TempVectorX = self.codificX
+        TempVectorY = self.codificY
+        self.codificX = self.codificX[:crossPoint+1] + Partner.getCodificX()[crossPoint+1:]
+        Partner.setCodificX(Partner.getCodificX()[:crossPoint+1]+TempVectorX[crossPoint+1:])
+        self.codificY = self.codificY[:crossPoint + 1] + Partner.getCodificY()[crossPoint + 1:]
+        Partner.setCodificY(Partner.getCodificY()[:crossPoint + 1] + TempVectorY[crossPoint + 1:])
+        if self.debug:
+            print("NewX1: {}, NewY1: {}".format(self.codificX, self.codificY))
+            print("NewX2: {}, NewY2: {}".format(Partner.getCodificX(), Partner.getCodificY()))
+        self.update()
+        Partner.update()
 
     #TODO
     #Uniform Crossover
