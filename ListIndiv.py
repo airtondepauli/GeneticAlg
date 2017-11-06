@@ -25,7 +25,6 @@ class ListGenetic:
             self.OrderNumber += 1
             self.Livres -=1
 
-
     def Ordena(self):
         self.List.sort(key=SHCamel.getFitnessValue)
         self.isSorted = True
@@ -76,5 +75,17 @@ class ListGenetic:
     def addBlock(self, listIndiv):
         if len(listIndiv) <= self.Livres:
             self.Livres = self.Livres + listIndiv
+            self.Livres-=len(listIndiv)
         else:
             raise ListFullException
+
+    def completeRandom(self):
+        while self.Livres>0:
+            self.List.append(SHCamel(self.Nbits, self.RangeX, self.RangeY, self.InicializacaoX, self.InicializacaoY, self.Tipo, self.OrderNumber, self.GeracaoAtual, self.PI ))
+            self.OrderNumber+=1
+            self.Livres-=1
+
+    def setOrderNumber(self):
+        pass
+
+

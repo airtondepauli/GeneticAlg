@@ -43,7 +43,7 @@ class IndividuoRep(metaclass=ABCMeta):
         self.EspacoBuscaX = RangeX
         self.EspacoBuscaY = RangeY
         self.fitnessValue = 0
-        self.debug = True
+        self.debug = False
         try:
             if InicializacaoX is None and InicializacaoY is None:
                 if Tipo == 'd':
@@ -156,6 +156,9 @@ class IndividuoRep(metaclass=ABCMeta):
         if self.codificY[0] == RangeY[0] or self.codificY[0] == RangeY[1]:
             for i in range(1, self.Nbits):
                 self.codificY[i] = 0
+
+    def correctOrderNumber(self):
+        pass
 
 
     #TODO
