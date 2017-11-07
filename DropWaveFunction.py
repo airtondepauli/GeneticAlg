@@ -5,7 +5,7 @@ import math
 
 class DropWave(IndividuoRep):
     def fitnessFunction(self):
-        firstTerm = -1 + math.cos(12*math.sqrt(pow(self.valueX, 2) + pow(self.valueY, 2)))
+        firstTerm = -(1 + math.cos(12*math.sqrt(pow(self.valueX, 2) + pow(self.valueY, 2))))
         secondTerm = 1/2*(pow(self.valueX, 2)+ pow(self.valueY, 2)) + 2
         self.fitnessValue = firstTerm/secondTerm
 
