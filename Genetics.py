@@ -145,11 +145,25 @@ class IndividuoRep(metaclass=ABCMeta):
         self.codificY = nCodificY
 
     def update(self):
-        self.boundariesCorrection(self.EspacoBuscaX, self.EspacoBuscaY)
+        self.boundariesCorrection2(self.EspacoBuscaX, self.EspacoBuscaY)
         self.setToNumber()
         self.fitnessFunction()
 
     def boundariesCorrection(self, RangeX, RangeY):
+        if self.codificX[0] == RangeX[0] or self.codificX[0] == RangeX[1]:
+            if random.random() <= 0.7:
+                self.codificX[0] = 0
+            else:
+                for i in range(1, self.Nbits):
+                    self.codificX[i] = 0
+        if self.codificY[0] == RangeY[0] or self.codificY[0] == RangeY[1]:
+            if random.random() <= 0.7:
+                self.codificY[0] = 0
+            else:
+                for i in range(1, self.Nbits):
+                    self.codificY[i] = 0
+
+    def boundariesCorrection2(self, RangeX, RangeY):
         if self.codificX[0] == RangeX[0] or self.codificX[0] == RangeX[1]:
             for i in range(1, self.Nbits):
                 self.codificX[i] = 0

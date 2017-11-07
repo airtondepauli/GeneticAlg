@@ -1,5 +1,4 @@
-from ListIndiv import ListGenetic
-from SixHumpCamelFunction import SHCamel
+from ListIndivDropWave import ListGenetic
 import random
 import math
 import pdb
@@ -45,7 +44,7 @@ class GeneticAlgorithmController:
             self.BestIndiv.append(self.Population.bestIndiv())
             self.Average.append(self.Population.averageFitness())
             #if self.Population.bestIndiv().getFitnessValue() < -1:
-            #    print(self.Population.bestIndiv())
+             #   print(self.Population.bestIndiv())
 
             #print("####################")
             #self.Population.printDebug()

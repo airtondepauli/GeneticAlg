@@ -1,4 +1,4 @@
-from SixHumpCamelFunction import SHCamel
+from DropWaveFunction import DropWave
 import random
 from PopulationFull import ListFullException
 import pdb
@@ -21,12 +21,12 @@ class ListGenetic:
 
     def initialize(self):
         for i in range(self.Size):
-            self.List.append(SHCamel(self.Nbits, self.RangeX, self.RangeY, self.InicializacaoX, self.InicializacaoY, self.Tipo, self.OrderNumber, self.GeracaoAtual, self.PI ))
+            self.List.append(DropWave(self.Nbits, self.RangeX, self.RangeY, self.InicializacaoX, self.InicializacaoY, self.Tipo, self.OrderNumber, self.GeracaoAtual, self.PI ))
             self.OrderNumber += 1
             self.Livres -=1
 
     def Ordena(self):
-        self.List.sort(key=SHCamel.getFitnessValue)
+        self.List.sort(key=DropWave.getFitnessValue)
         self.isSorted = True
 
     def debugPrint(self):
@@ -82,7 +82,7 @@ class ListGenetic:
 
     def completeRandom(self, geracao):
         while self.Livres>0:
-            self.List.append(SHCamel(self.Nbits, self.RangeX, self.RangeY, None, None, 'd', self.OrderNumber, geracao, self.PI))
+            self.List.append(DropWave(self.Nbits, self.RangeX, self.RangeY, None, None, 'd', self.OrderNumber, geracao, self.PI))
             self.OrderNumber+=1
             self.Livres-=1
 
